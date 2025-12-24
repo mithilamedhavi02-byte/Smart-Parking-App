@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "smart_parking_app"
+rootProject.name = "My Application"
 include(":app")
+ 
