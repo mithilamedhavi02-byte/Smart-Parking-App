@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B2A"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register Admin"
+            android:textColor="#E0E1DD"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp" />
+
+        <!-- Phone Number Section -->
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textColor="#E0E1DD"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleText"
+            android:layout_marginTop="48dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/phoneCard"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            app:cardBackgroundColor="#1B263B"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneLabel"
+            android:layout_marginTop="12dp">
+
+            <EditText
+                android:id="@+id/phoneInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="+1 (585) 000-3000"
+                android:textColor="#E0E1DD"
+                android:textSize="16sp"
+                android:inputType="phone"
+                android:imeOptions="actionNext" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Password Section -->
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="#E0E1DD"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneCard"
+            android:layout_marginTop="32dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/passwordCard"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            app:cardBackgroundColor="#1B263B"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+            android:layout_marginTop="12dp">
+
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="xxxxxxxxxx"
+                android:textColor="#E0E1DD"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Confirm Password Section -->
+        <TextView
+            android:id="@+id/confirmPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password"
+            android:textColor="#E0E1DD"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordCard"
+            android:layout_marginTop="32dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/confirmPasswordCard"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            app:cardBackgroundColor="#1B263B"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel"
+            android:layout_marginTop="12dp">
+
+            <EditText
+                android:id="@+id/confirmPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="xxxxxxxxx"
+                android:textColor="#E0E1DD"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="Register"
+            android:textColor="#0D1B2A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="#778DA9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirmPasswordCard"
+            android:layout_marginTop="48dp"
+            android:elevation="8dp" />
+
+        <!-- Login Link -->
+        <TextView
+            android:id="@+id/loginLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Login"
+            android:textColor="#778DA9"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerButton"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="40dp"
+            android:padding="12dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
