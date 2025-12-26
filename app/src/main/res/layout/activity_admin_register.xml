@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/p1"
+    android:scaleType="centerCrop"
+    tools:context=".RegisterUser">
+
+    <!-- Semi-transparent Overlay for better readability -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <!-- Header Section -->
+            <TextView
+                android:id="@+id/appTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Register Admin"
+                android:textColor="#7DC143"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/appSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="create admin account for system management"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appTitle"
+                android:layout_marginTop="8dp" />
+
+            <!-- Full Name Section -->
+            <TextView
+                android:id="@+id/fullNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appSubtitle"
+                android:layout_marginTop="32dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fullNameCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/fullNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Enter your full name"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Full Name Error Message -->
+            <TextView
+                android:id="@+id/fullNameError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Name must be at least 3 characters"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fullNameCard" />
+
+            <!-- NIC Section -->
+            <TextView
+                android:id="@+id/nicLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIC"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fullNameError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/nicCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/nicInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Enter your NIC number"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- NIC Error Message -->
+            <TextView
+                android:id="@+id/nicError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please enter a valid NIC number"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicCard" />
+
+            <!-- Phone Number Section -->
+            <TextView
+                android:id="@+id/phoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/phoneCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/phoneInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="+94 77 123 4567"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Phone Error Message -->
+            <TextView
+                android:id="@+id/phoneError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please enter a valid Sri Lankan phone number"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneCard" />
+
+            <!-- Email Section -->
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/emailCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/emailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="example@gmail.com"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Email Error Message -->
+            <TextView
+                android:id="@+id/emailError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please enter a valid email address"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailCard" />
+
+            <!-- Password Section -->
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/passwordCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="At least 8 characters"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Password Error Message -->
+            <TextView
+                android:id="@+id/passwordError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Password must be at least 8 characters"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordCard" />
+
+            <!-- Confirm Password Section -->
+            <TextView
+                android:id="@+id/confirmPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/confirmPasswordCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/confirmPasswordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Re-enter your password"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Confirm Password Error Message -->
+            <TextView
+                android:id="@+id/confirmPasswordError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Passwords do not match"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordCard" />
+
+            <!-- Register Button -->
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#7DC143"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:text="Register"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordError" />
+
+            <!-- Login Link -->
+            <TextView
+                android:id="@+id/loginLinkText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? "
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp" />
+
+            <TextView
+                android:id="@+id/loginLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="#7DC143"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/loginLinkText"
+                app:layout_constraintBaseline_toBaselineOf="@id/loginLinkText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
