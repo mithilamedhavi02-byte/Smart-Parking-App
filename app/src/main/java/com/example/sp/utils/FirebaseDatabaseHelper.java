@@ -1,125 +1,95 @@
 package com.example.sp.utils;
 
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DataSnapshot;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseDatabaseHelper {
 
-    private DatabaseReference databaseReference;
-    private static final String TAG = "FirebaseDBHelper";
+    private final DatabaseReference dbRef;
 
     public FirebaseDatabaseHelper() {
-        try {
-            // Initialize Firebase Database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-            // Get reference to "users" node
-            databaseReference = database.getReference("users");
-
-            Log.d(TAG, "Firebase Database initialized successfully");
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error initializing Firebase: " + e.getMessage());
-        }
+        dbRef = FirebaseDatabase.getInstance().getReference("users"); // "users" node එක
     }
 
-    // Save user to Firebase using Map
-    public void saveUserMap(String fullName, String nic, String phone,
-                            String email, String password, String userType,
-                            DatabaseCallback callback) {
-        try {
-            String userId = databaseReference.push().getKey();
-            if (userId == null) {
-                callback.onError("Failed to generate user ID");
-                return;
-            }
-
-            // Create user data as Map
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("userId", userId);
-            userData.put("fullName", fullName);
-            userData.put("nic", nic);
-            userData.put("phone", phone);
-            userData.put("email", email);
-            userData.put("password", password);
-            userData.put("userType", userType);
-            userData.put("timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                    Locale.getDefault()).format(new Date()));
-
-            // Save to Firebase
-            databaseReference.child(userId).setValue(userData)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d(TAG, "User data saved: " + userId);
-                        callback.onSuccess(userId);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to save: " + e.getMessage());
-                        callback.onError(e.getMessage());
-                    });
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error in saveUserMap: " + e.getMessage());
-            callback.onError(e.getMessage());
-        }
+    // Interface for login callback
+    public interface LoginCallback {
+        void onSuccess();
+        void onFailure(String message);
     }
 
-    // Check if email already exists
-    public void checkEmailExists(String email, EmailCheckCallback callback) {
-        databaseReference.orderByChild("email").equalTo(email)
-                .addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+    public void checkAdminLogin(String nic, String password, LoginCallback callback) {
+        dbRef.orderByChild("nic").equalTo(nic)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean exists = dataSnapshot.exists();
-                        Log.d(TAG, "Email check: " + email + " exists: " + exists);
-                        callback.onEmailChecked(exists);
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                String userPassword = userSnapshot.child("password").getValue(String.class);
+                                String role = userSnapshot.child("role").getValue(String.class);
+                                if (userPassword != null && userPassword.equals(password) && role.equals("admin")) {
+                                    callback.onSuccess();
+                                    return;
+                                }
+                            }
+                            callback.onFailure("Incorrect password or not an admin");
+                        } else {
+                            callback.onFailure("NIC not registered");
+                        }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e(TAG, "Error checking email: " + databaseError.getMessage());
-                        callback.onEmailChecked(false);
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onFailure("Firebase Error: " + error.getMessage());
                     }
                 });
     }
 
-    // Check if NIC already exists
-    public void checkNicExists(String nic, NicCheckCallback callback) {
-        databaseReference.orderByChild("nic").equalTo(nic)
-                .addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean exists = dataSnapshot.exists();
-                        Log.d(TAG, "NIC check: " + nic + " exists: " + exists);
-                        callback.onNicChecked(exists);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e(TAG, "Error checking NIC: " + databaseError.getMessage());
-                        callback.onNicChecked(false);
-                    }
-                });
-    }
-
-    // Interface for callbacks
+    // Save user/admin data
     public interface DatabaseCallback {
         void onSuccess(String userId);
         void onError(String errorMessage);
     }
 
-    public interface EmailCheckCallback {
-        void onEmailChecked(boolean exists);
+    public void saveUserMap(String fullName, String nic, String phone, String email, String password, String role, DatabaseCallback callback) {
+        String userId = dbRef.push().getKey();
+        if (userId == null) {
+            callback.onError("Failed to generate User ID");
+            return;
+        }
+
+        dbRef.child(userId).child("fullName").setValue(fullName);
+        dbRef.child(userId).child("nic").setValue(nic);
+        dbRef.child(userId).child("phone").setValue(phone);
+        dbRef.child(userId).child("email").setValue(email);
+        dbRef.child(userId).child("password").setValue(password);
+        dbRef.child(userId).child("role").setValue(role);
+
+        callback.onSuccess(userId);
     }
 
-    public interface NicCheckCallback {
-        void onNicChecked(boolean exists);
+    public void checkEmailExists(String email, EmailCheckCallback callback) {
+        dbRef.orderByChild("email").equalTo(email)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        callback.onResult(snapshot.exists());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onResult(false);
+                    }
+                });
+    }
+
+    public interface EmailCheckCallback {
+        void onResult(boolean exists);
     }
 }

@@ -1,5 +1,8 @@
 package com.example.sp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,39 +22,20 @@ import java.util.regex.Pattern;
 
 public class AdminRegister extends AppCompatActivity {
 
-    // Declare UI components
-    private EditText fullNameInput;
-    private EditText nicInput;
-    private EditText phoneInput;
-    private EditText emailInput;
-    private EditText passwordInput;
-    private EditText confirmPasswordInput;
-
-    private TextView fullNameError;
-    private TextView nicError;
-    private TextView phoneError;
-    private TextView emailError;
-    private TextView passwordError;
-    private TextView confirmPasswordError;
-
+    private EditText fullNameInput, nicInput, phoneInput, emailInput, passwordInput, confirmPasswordInput;
+    private TextView fullNameError, nicError, phoneError, emailError, passwordError, confirmPasswordError;
     private Button registerButton;
     private TextView loginLink;
     private ProgressBar progressBar;
 
-    // Firebase helper
     private FirebaseDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Fixed: use R.layout, not R.activity
         setContentView(R.layout.activity_admin_register);
 
-        // Initialize Firebase helper
         dbHelper = new FirebaseDatabaseHelper();
-
-        System.out.println("AdminRegister Activity Started");
-        System.out.println("Firebase initialized for Admin Register");
 
         initializeViews();
         setupTextChangeListeners();
@@ -75,94 +59,47 @@ public class AdminRegister extends AppCompatActivity {
 
         registerButton = findViewById(R.id.registerButton);
         loginLink = findViewById(R.id.loginLink);
-
         progressBar = findViewById(R.id.progressBar);
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
     }
 
     private void setupTextChangeListeners() {
-        // Full Name validation
-        fullNameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateFullName();
+        fullNameInput.addTextChangedListener(createTextWatcher(this::validateFullName));
+        nicInput.addTextChangedListener(createTextWatcher(this::validateNIC));
+        phoneInput.addTextChangedListener(createTextWatcher(this::validatePhone));
+        emailInput.addTextChangedListener(createTextWatcher(() -> {
+            validateEmail();
+            String email = emailInput.getText().toString().trim();
+            if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                checkEmailExists(email);
             }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
+        }));
+        passwordInput.addTextChangedListener(createTextWatcher(() -> {
+            validatePassword();
+            validateConfirmPassword();
+        }));
+        confirmPasswordInput.addTextChangedListener(createTextWatcher(this::validateConfirmPassword));
+    }
 
-        // NIC validation
-        nicInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateNIC();
-            }
+    private TextWatcher createTextWatcher(Runnable afterTextChangedAction) {
+        return new TextWatcher() {
+            @Override public void afterTextChanged(Editable s) { afterTextChangedAction.run(); }
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        // Phone validation
-        phoneInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validatePhone();
-            }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        // Email validation
-        emailInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateEmail();
-                String email = s.toString().trim();
-                if (!email.isEmpty() && validateEmailFormat(email)) {
-                    checkEmailExists(email);
-                }
-            }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        // Password validation
-        passwordInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validatePassword();
-                validateConfirmPassword();
-            }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        // Confirm Password validation
-        confirmPasswordInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateConfirmPassword();
-            }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
+        };
     }
 
     private void setupButtonClickListeners() {
         registerButton.setOnClickListener(v -> {
-            if (validateAllFields()) {
-                registerAdminToFirebase();
-            } else {
-                Toast.makeText(AdminRegister.this, "Please fix all errors", Toast.LENGTH_SHORT).show();
-            }
+            if (validateAllFields()) registerAdminToFirebase();
+            else Toast.makeText(AdminRegister.this, "Please fix all errors", Toast.LENGTH_SHORT).show();
         });
 
-        loginLink.setOnClickListener(v ->
-                Toast.makeText(AdminRegister.this, "Navigate to Login", Toast.LENGTH_SHORT).show());
+        loginLink.setOnClickListener(v -> {
+            startActivity(new Intent(AdminRegister.this, AdminLogin.class));
+        });
     }
 
-    // Validation functions
     private boolean validateFullName() {
         String name = fullNameInput.getText().toString().trim();
         if (name.length() < 3) {
@@ -217,8 +154,16 @@ public class AdminRegister extends AppCompatActivity {
         }
     }
 
-    private boolean validateEmailFormat(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    private void checkEmailExists(String email) {
+        dbHelper.checkEmailExists(email, exists -> runOnUiThread(() -> {
+            if (exists) {
+                emailInput.setError("Email already registered");
+                emailError.setVisibility(View.VISIBLE);
+            } else {
+                emailInput.setError(null);
+                emailError.setVisibility(View.GONE);
+            }
+        }));
     }
 
     private boolean validatePassword() {
@@ -248,49 +193,9 @@ public class AdminRegister extends AppCompatActivity {
         }
     }
 
-    private void checkEmailExists(String email) {
-        dbHelper.checkEmailExists(email, exists -> runOnUiThread(() -> {
-            if (exists) {
-                emailInput.setError("Email already registered");
-                emailError.setVisibility(View.VISIBLE);
-            } else {
-                emailInput.setError(null);
-                emailError.setVisibility(View.GONE);
-            }
-        }));
-    }
-
     private boolean validateAllFields() {
-        boolean isFullNameValid = validateFullName();
-        boolean isNICValid = validateNIC();
-        boolean isPhoneValid = validatePhone();
-        boolean isEmailValid = validateEmail();
-        boolean isPasswordValid = validatePassword();
-        boolean isConfirmPasswordValid = validateConfirmPassword();
-
-        if (fullNameInput.getText().toString().trim().isEmpty()) {
-            fullNameInput.setError("Full name is required");
-            return false;
-        }
-        if (nicInput.getText().toString().trim().isEmpty()) {
-            nicInput.setError("NIC is required");
-            return false;
-        }
-        if (phoneInput.getText().toString().trim().isEmpty()) {
-            phoneInput.setError("Phone is required");
-            return false;
-        }
-        if (emailInput.getText().toString().trim().isEmpty()) {
-            emailInput.setError("Email is required");
-            return false;
-        }
-        if (passwordInput.getText().toString().isEmpty()) {
-            passwordInput.setError("Password is required");
-            return false;
-        }
-
-        return isFullNameValid && isNICValid && isPhoneValid &&
-                isEmailValid && isPasswordValid && isConfirmPasswordValid;
+        return validateFullName() && validateNIC() && validatePhone() &&
+                validateEmail() && validatePassword() && validateConfirmPassword();
     }
 
     private void registerAdminToFirebase() {
@@ -303,11 +208,6 @@ public class AdminRegister extends AppCompatActivity {
         showProgress(true);
         registerButton.setEnabled(false);
 
-        System.out.println("Saving Admin to Firebase:");
-        System.out.println("Full Name: " + fullName);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phone);
-
         dbHelper.saveUserMap(fullName, nic, phone, email, password, "admin",
                 new FirebaseDatabaseHelper.DatabaseCallback() {
                     @Override
@@ -316,13 +216,24 @@ public class AdminRegister extends AppCompatActivity {
                             showProgress(false);
                             registerButton.setEnabled(true);
 
-                            Toast.makeText(AdminRegister.this,
-                                    "Admin Registration Successful!\nAdmin ID: " + userId,
-                                    Toast.LENGTH_LONG).show();
+                            // Save NIC & Password for auto-fill
+                            SharedPreferences prefs = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("NIC", nic);
+                            editor.putString("Password", password);
+                            editor.apply();
 
-                            System.out.println("Admin saved successfully! User ID: " + userId);
+                            Toast.makeText(AdminRegister.this,
+                                    "Admin Registered! Redirecting to Login...",
+                                    Toast.LENGTH_SHORT).show();
 
                             clearForm();
+
+                            nicInput.postDelayed(() -> {
+                                Intent intent = new Intent(AdminRegister.this, AdminLogin.class);
+                                startActivity(intent);
+                                finish();
+                            }, 300);
                         });
                     }
 
@@ -334,16 +245,13 @@ public class AdminRegister extends AppCompatActivity {
                             Toast.makeText(AdminRegister.this,
                                     "Registration Failed: " + errorMessage,
                                     Toast.LENGTH_LONG).show();
-                            System.err.println("Firebase Error: " + errorMessage);
                         });
                     }
                 });
     }
 
     private void showProgress(boolean show) {
-        if (progressBar != null) {
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        }
+        if (progressBar != null) progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void clearForm() {
@@ -360,12 +268,5 @@ public class AdminRegister extends AppCompatActivity {
         emailError.setVisibility(View.GONE);
         passwordError.setVisibility(View.GONE);
         confirmPasswordError.setVisibility(View.GONE);
-
-        fullNameInput.setError(null);
-        nicInput.setError(null);
-        phoneInput.setError(null);
-        emailInput.setError(null);
-        passwordInput.setError(null);
-        confirmPasswordInput.setError(null);
     }
 }

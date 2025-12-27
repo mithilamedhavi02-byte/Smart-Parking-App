@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.sp"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.sp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
     }
@@ -38,4 +38,5 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+    implementation(libs.activity)
 }

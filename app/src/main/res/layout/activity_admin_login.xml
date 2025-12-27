@@ -5,6 +5,251 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/p2"
+    android:scaleType="centerCrop"
     tools:context=".AdminLogin">
+
+    <!-- Semi-transparent Overlay for better readability -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <!-- App Title -->
+            <TextView
+                android:id="@+id/appTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="Smart Parking Finder"
+                android:textColor="#7DC143"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Admin Login Header -->
+            <TextView
+                android:id="@+id/adminLoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Admin Login"
+                android:textColor="#7DC143"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appTitle" />
+
+            <!-- Admin Login Subtitle -->
+            <TextView
+                android:id="@+id/adminLoginSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Secure access for system administrators"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/adminLoginTitle"
+                android:layout_marginTop="8dp" />
+
+            <!-- NIC Section -->
+            <TextView
+                android:id="@+id/nicLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin NIC"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/adminLoginSubtitle"
+                android:layout_marginTop="32dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/nicCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/nicInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Enter your NIC number"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- NIC Error Message -->
+            <TextView
+                android:id="@+id/nicError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please enter a valid NIC number"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicCard" />
+
+            <!-- Password Section -->
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicError"
+                android:layout_marginTop="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/passwordCard"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:cardBackgroundColor="#80FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Enter admin password"
+                    android:textColor="#000000"
+                    android:textColorHint="#444444"
+                    android:textSize="16sp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Password Error Message -->
+            <TextView
+                android:id="@+id/passwordError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Please enter your password"
+                android:textColor="#FF6B6B"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordCard" />
+
+            <!-- Security Note -->
+            <TextView
+                android:id="@+id/securityNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="⚠️ This is a secure admin area. Unauthorized access is prohibited."
+                android:textColor="#FFD700"
+                android:textSize="12sp"
+                android:padding="12dp"
+                android:background="#40000000"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordError"
+                android:layout_marginTop="16dp" />
+
+            <!-- Login Button -->
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#7DC143"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:text="Admin Login"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/securityNote" />
+
+            <!-- User Login Link Section -->
+            <TextView
+                android:id="@+id/userLoginText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Regular user? "
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp" />
+
+            <TextView
+                android:id="@+id/userLoginLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Login"
+                android:textColor="#7DC143"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/userLoginText"
+                app:layout_constraintBaseline_toBaselineOf="@id/userLoginText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
