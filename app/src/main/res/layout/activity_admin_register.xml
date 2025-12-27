@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/p1"
-    android:scaleType="centerCrop"
-    tools:context=".RegisterUser">
+    tools:context=".AdminRegister">
 
     <!-- Semi-transparent Overlay for better readability -->
     <View
@@ -21,7 +21,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
         android:fadingEdgeLength="0dp"
         android:overScrollMode="never"
@@ -58,48 +58,48 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appTitle"
-                android:layout_marginTop="8dp" />
+                app:layout_constraintTop_toBottomOf="@id/appTitle" />
 
             <!-- Full Name Section -->
             <TextView
                 android:id="@+id/fullNameLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:text="Full Name"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appSubtitle"
-                android:layout_marginTop="32dp" />
+                app:layout_constraintTop_toBottomOf="@id/appSubtitle" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/fullNameCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fullNameLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/fullNameLabel">
 
                 <EditText
                     android:id="@+id/fullNameInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="Enter your full name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="Enter your full name"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -108,12 +108,12 @@
                 android:id="@+id/fullNameError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Name must be at least 3 characters"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fullNameCard" />
@@ -121,42 +121,43 @@
             <!-- NIC Section -->
             <TextView
                 android:id="@+id/nicLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="NIC"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fullNameError"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintTop_toBottomOf="@id/fullNameError" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/nicCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nicLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/nicLabel">
 
                 <EditText
                     android:id="@+id/nicInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="Enter your NIC number"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="Enter your NIC number"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -165,12 +166,12 @@
                 android:id="@+id/nicError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Please enter a valid NIC number"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nicCard" />
@@ -178,42 +179,43 @@
             <!-- Phone Number Section -->
             <TextView
                 android:id="@+id/phoneLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Phone Number"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nicError"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintTop_toBottomOf="@id/nicError" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/phoneCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/phoneLabel">
 
                 <EditText
                     android:id="@+id/phoneInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="+94 77 123 4567"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="+94 77 123 4567"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="phone"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -222,12 +224,12 @@
                 android:id="@+id/phoneError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Please enter a valid Sri Lankan phone number"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/phoneCard" />
@@ -235,42 +237,43 @@
             <!-- Email Section -->
             <TextView
                 android:id="@+id/emailLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Email Address"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneError"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintTop_toBottomOf="@id/phoneError" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/emailCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/emailLabel">
 
                 <EditText
                     android:id="@+id/emailInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="example@gmail.com"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="example@gmail.com"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -279,12 +282,12 @@
                 android:id="@+id/emailError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Please enter a valid email address"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailCard" />
@@ -292,42 +295,43 @@
             <!-- Password Section -->
             <TextView
                 android:id="@+id/passwordLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Password"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailError"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintTop_toBottomOf="@id/emailError" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/passwordCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/passwordLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/passwordLabel">
 
                 <EditText
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="At least 8 characters"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="At least 8 characters"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="textPassword"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -336,12 +340,12 @@
                 android:id="@+id/passwordError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Password must be at least 8 characters"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/passwordCard" />
@@ -349,42 +353,43 @@
             <!-- Confirm Password Section -->
             <TextView
                 android:id="@+id/confirmPasswordLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Confirm Password"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/passwordError"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintTop_toBottomOf="@id/passwordError" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/confirmPasswordCard"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="#80FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel"
-                android:layout_marginTop="8dp">
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordLabel">
 
                 <EditText
                     android:id="@+id/confirmPasswordInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:hint="Re-enter your password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:hint="Re-enter your password"
                     android:textColor="#000000"
                     android:textColorHint="#444444"
-                    android:textSize="16sp"
-                    android:inputType="textPassword"
-                    android:imeOptions="actionDone"
-                    android:maxLines="1" />
+                    android:textSize="16sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -393,12 +398,12 @@
                 android:id="@+id/confirmPasswordError"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:text="Passwords do not match"
                 android:textColor="#FF6B6B"
                 android:textSize="12sp"
                 android:visibility="gone"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/confirmPasswordCard" />
@@ -411,7 +416,6 @@
                 android:layout_marginTop="32dp"
                 android:backgroundTint="#7DC143"
                 android:elevation="8dp"
-                android:stateListAnimator="@null"
                 android:text="Register"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -425,14 +429,15 @@
                 android:id="@+id/loginLinkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
                 android:text="Already have an account? "
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/registerButton"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp" />
+                app:layout_constraintEnd_toStartOf="@+id/loginLink"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerButton" />
 
             <TextView
                 android:id="@+id/loginLink"
@@ -442,8 +447,8 @@
                 android:textColor="#7DC143"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/loginLinkText"
-                app:layout_constraintBaseline_toBaselineOf="@id/loginLinkText" />
+                app:layout_constraintBaseline_toBaselineOf="@id/loginLinkText"
+                app:layout_constraintStart_toEndOf="@id/loginLinkText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

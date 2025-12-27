@@ -1,4 +1,4 @@
-package com.example.smartparking;
+package com.example.sp;
 
 import org.junit.Test;
 

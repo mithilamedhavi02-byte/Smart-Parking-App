@@ -4,13 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.smartparking"
-    compileSdk = 33
+    namespace = "com.example.sp"
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
-        applicationId = "com.example.smartparking"
-        minSdk = 21
-        targetSdk = 33
+        applicationId = "com.example.sp"
+        minSdk = 24
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -26,33 +28,13 @@ android {
             )
         }
     }
-
     compileOptions {
-        // ⚠️ IMPORTANT FIX
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
 dependencies {
-
-    // AndroidX
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.activity:activity:1.8.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
-    // Firebase (STABLE)
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-database")
+    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
     implementation("com.google.firebase:firebase-analytics")
-
-    // Google Sign-In (optional)
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
-
-    // Testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

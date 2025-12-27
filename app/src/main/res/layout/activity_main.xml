@@ -8,11 +8,11 @@
     android:background="#000000"
     tools:context=".MainActivity">
 
-    <!-- Video Background -->
+    <!-- Video Background - FULL SCREEN -->
     <VideoView
         android:id="@+id/videoBackground"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- App Title -->
+    <!-- App Title with invisible initial state -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
@@ -40,11 +40,12 @@
         android:textSize="32sp"
         android:textStyle="bold"
         android:layout_marginTop="80dp"
+        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Welcome Message -->
+    <!-- Welcome Message with invisible initial state -->
     <TextView
         android:id="@+id/welcomeMessage"
         android:layout_width="wrap_content"
@@ -54,11 +55,12 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Tagline -->
+    <!-- Tagline with invisible initial state -->
     <TextView
         android:id="@+id/tagline"
         android:layout_width="wrap_content"
@@ -67,11 +69,12 @@
         android:textColor="#CCCCCC"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/welcomeMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Start Button -->
+    <!-- Start Button with invisible initial state -->
     <Button
         android:id="@+id/startButton"
         android:layout_width="0dp"
@@ -85,12 +88,13 @@
         android:textStyle="bold"
         android:elevation="12dp"
         android:stateListAnimator="@null"
+        android:visibility="invisible"
         app:cornerRadius="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Bottom Note -->
+    <!-- Bottom Note with invisible initial state -->
     <TextView
         android:id="@+id/bottomNote"
         android:layout_width="wrap_content"
@@ -99,6 +103,7 @@
         android:textColor="#AAAAAA"
         android:textSize="14sp"
         android:layout_marginBottom="32dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/startButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
