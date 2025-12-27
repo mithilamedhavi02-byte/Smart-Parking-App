@@ -13,9 +13,11 @@
         android:theme="@style/Theme.SP"
         tools:targetApi="31">
         <activity
-            android:name=".DriverRegister"
+            android:name=".FirebaseDatabaseHelper"
             android:exported="false" />
-        <!-- Main/Launcher Activity -->
+        <activity
+            android:name=".DriverRegister"
+            android:exported="false" /> <!-- Main/Launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
