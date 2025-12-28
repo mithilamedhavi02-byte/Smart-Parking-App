@@ -59,7 +59,8 @@ public class AdminLogin extends AppCompatActivity {
         loginButton.setOnClickListener(v -> loginAdmin());
 
         userLoginLink.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminLogin.this, AdminLogin.class);
+            // Example: Navigate to user login activity if needed
+            Intent intent = new Intent(AdminLogin.this, Add_Parking.class);
             startActivity(intent);
         });
     }
@@ -99,6 +100,7 @@ public class AdminLogin extends AppCompatActivity {
                     Toast.makeText(AdminLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                     loginButton.setEnabled(true);
 
+                    // Open AddParkingActivity after successful login
                     Intent intent = new Intent(AdminLogin.this, Add_Parking.class);
                     startActivity(intent);
                     finish();
