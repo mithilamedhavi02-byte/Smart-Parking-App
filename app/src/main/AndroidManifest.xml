@@ -13,14 +13,20 @@
         android:theme="@style/Theme.SP"
         tools:targetApi="31">
         <activity
-            android:name=".Add_Parking"
+            android:name=".DriverLogin"
             android:exported="false" />
+        <!-- Add Parking Activity -->
+        <activity
+            android:name=".Add_Parking"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" /> <!-- Firebase Helper Activity (usually helper class, not activity) -->
         <activity
             android:name=".FirebaseDatabaseHelper"
-            android:exported="false" />
+            android:exported="false" /> <!-- Driver Register -->
         <activity
             android:name=".DriverRegister"
-            android:exported="false" /> <!-- Main/Launcher Activity -->
+            android:exported="false" /> <!-- Main / Launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -40,8 +46,9 @@
             android:windowSoftInputMode="adjustResize" /> <!-- Admin Login Activity -->
         <activity
             android:name=".AdminLogin"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

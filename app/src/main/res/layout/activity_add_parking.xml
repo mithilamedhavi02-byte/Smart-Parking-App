@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/p3"
     android:scaleType="centerCrop"
-    tools:context=".AddParkingActivity">
+    tools:context=".Add_Parking">
 
     <!-- Semi-transparent Overlay -->
     <View
@@ -229,11 +229,7 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_car"
-                            android:tint="#7DC143" />
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -273,11 +269,7 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_bike"
-                            android:tint="#7DC143" />
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -498,7 +490,7 @@
                             android:id="@+id/switchCCTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="auto"
+                            android:layout_marginStart="16dp"
                             android:thumbTint="#7DC143"
                             android:trackTint="#CCCCCC" />
                     </LinearLayout>
@@ -529,7 +521,7 @@
                             android:id="@+id/switchSecurity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="auto"
+                            android:layout_marginStart="0dp"
                             android:thumbTint="#7DC143"
                             android:trackTint="#CCCCCC" />
                     </LinearLayout>
@@ -560,7 +552,7 @@
                             android:id="@+id/switchBooked"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="auto"
+                            android:layout_marginStart="0dp"
                             android:thumbTint="#7DC143"
                             android:trackTint="#CCCCCC" />
                     </LinearLayout>
@@ -590,7 +582,7 @@
                             android:id="@+id/switchEV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="auto"
+                            android:layout_marginStart="0dp"
                             android:thumbTint="#7DC143"
                             android:trackTint="#CCCCCC" />
                     </LinearLayout>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -83,16 +84,29 @@ public class AdminRegister extends AppCompatActivity {
 
     private TextWatcher createTextWatcher(Runnable afterTextChangedAction) {
         return new TextWatcher() {
-            @Override public void afterTextChanged(Editable s) { afterTextChangedAction.run(); }
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                afterTextChangedAction.run();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         };
     }
 
     private void setupButtonClickListeners() {
         registerButton.setOnClickListener(v -> {
-            if (validateAllFields()) registerAdminToFirebase();
-            else Toast.makeText(AdminRegister.this, "Please fix all errors", Toast.LENGTH_SHORT).show();
+            Log.d("AdminRegister", "Register button clicked");
+            Toast.makeText(AdminRegister.this, "Processing registration...", Toast.LENGTH_SHORT).show();
+
+            if (validateAllFields()) {
+                registerAdminToFirebase();
+            } else {
+                Toast.makeText(AdminRegister.this, "Please fix all errors", Toast.LENGTH_SHORT).show();
+            }
         });
 
         loginLink.setOnClickListener(v -> {
@@ -194,8 +208,11 @@ public class AdminRegister extends AppCompatActivity {
     }
 
     private boolean validateAllFields() {
-        return validateFullName() && validateNIC() && validatePhone() &&
+        boolean isValid = validateFullName() && validateNIC() && validatePhone() &&
                 validateEmail() && validatePassword() && validateConfirmPassword();
+
+        Log.d("AdminRegister", "All fields validation result: " + isValid);
+        return isValid;
     }
 
     private void registerAdminToFirebase() {
@@ -205,6 +222,8 @@ public class AdminRegister extends AppCompatActivity {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString();
 
+        Log.d("AdminRegister", "Starting registration with: " + email);
+
         showProgress(true);
         registerButton.setEnabled(false);
 
@@ -213,6 +232,8 @@ public class AdminRegister extends AppCompatActivity {
                     @Override
                     public void onSuccess(String userId) {
                         runOnUiThread(() -> {
+                            Log.d("AdminRegister", "Registration successful, user ID: " + userId);
+
                             showProgress(false);
                             registerButton.setEnabled(true);
 
@@ -227,19 +248,18 @@ public class AdminRegister extends AppCompatActivity {
                                     "Admin Registered! Redirecting to Login...",
                                     Toast.LENGTH_SHORT).show();
 
-                            clearForm();
-
-                            nicInput.postDelayed(() -> {
-                                Intent intent = new Intent(AdminRegister.this, AdminLogin.class);
-                                startActivity(intent);
-                                finish();
-                            }, 300);
+                            // Directly navigate to AdminLogin after successful registration
+                            Intent intent = new Intent(AdminRegister.this, AdminLogin.class);
+                            startActivity(intent);
+                            finish();
                         });
                     }
 
                     @Override
                     public void onError(String errorMessage) {
                         runOnUiThread(() -> {
+                            Log.e("AdminRegister", "Registration failed: " + errorMessage);
+
                             showProgress(false);
                             registerButton.setEnabled(true);
                             Toast.makeText(AdminRegister.this,
@@ -251,22 +271,8 @@ public class AdminRegister extends AppCompatActivity {
     }
 
     private void showProgress(boolean show) {
-        if (progressBar != null) progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    private void clearForm() {
-        fullNameInput.setText("");
-        nicInput.setText("");
-        phoneInput.setText("");
-        emailInput.setText("");
-        passwordInput.setText("");
-        confirmPasswordInput.setText("");
-
-        fullNameError.setVisibility(View.GONE);
-        nicError.setVisibility(View.GONE);
-        phoneError.setVisibility(View.GONE);
-        emailError.setVisibility(View.GONE);
-        passwordError.setVisibility(View.GONE);
-        confirmPasswordError.setVisibility(View.GONE);
+        if (progressBar != null) {
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 }

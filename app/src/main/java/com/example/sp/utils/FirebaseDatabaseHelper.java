@@ -51,7 +51,35 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    // Save user/admin data
+    // 🔥 NEW: Driver Login Method
+    public void checkDriverLogin(String email, String password, LoginCallback callback) {
+        dbRef.orderByChild("email").equalTo(email)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                String userPassword = userSnapshot.child("password").getValue(String.class);
+                                String role = userSnapshot.child("role").getValue(String.class);
+                                if (userPassword != null && userPassword.equals(password) && role.equals("driver")) {
+                                    callback.onSuccess();
+                                    return;
+                                }
+                            }
+                            callback.onFailure("Incorrect password or not a driver");
+                        } else {
+                            callback.onFailure("Email not registered");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onFailure("Firebase Error: " + error.getMessage());
+                    }
+                });
+    }
+
+    // Save user/admin/driver data
     public interface DatabaseCallback {
         void onSuccess(String userId);
         void onError(String errorMessage);
