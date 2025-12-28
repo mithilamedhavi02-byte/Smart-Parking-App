@@ -13,9 +13,11 @@
         android:theme="@style/Theme.SP"
         tools:targetApi="31">
         <activity
-            android:name=".DriverLogin"
+            android:name=".Driverusepage"
             android:exported="false" />
-        <!-- Add Parking Activity -->
+        <activity
+            android:name=".DriverLogin"
+            android:exported="false" /> <!-- Add Parking Activity -->
         <activity
             android:name=".Add_Parking"
             android:exported="true"
